@@ -1,0 +1,123 @@
+<aura:component controller="Flosum_LinkBranchWithWorkController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="idOfRecord" type="String"/>
+    <aura:attribute name="rec" type="Object"/>
+    <aura:attribute name="linkWithWorkPage" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <article class="slds-card">
+        <lightning:layout>
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:button class="slds-float_right" variant="brand" label="Link With Work" title="Link With Work" onclick="{!c.linkWorkRecord}" />
+            </lightning:layoutItem>
+        </lightning:layout>
+        <aura:if isTrue="{!v.rec != null}">
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Name</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.Name}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Assigned To</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Assignee__r.Name}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Epic Name</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Epic_Name__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Subject</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Subject__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Product Tag</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Product_Tag_Name__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Record Type</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.RecordType.Name}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Status</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Status__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Priority</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Priority__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Description</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Details__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Comment</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Description__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Details and Steps to Reproduce</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Details_and_Steps_to_Reproduce__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Additional Details</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Additional_Details__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem  size="4" padding="around-small">
+                    <div class="slds-form-element slds-form-element_readonly">
+                        <span class="slds-form-element__label">Feedback</span>
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__static">{!v.rec.agf__Feedback__c}</div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:if>
+    </article>
+</aura:component>

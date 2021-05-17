@@ -1,0 +1,110 @@
+<aura:component controller="Flosum_LinkBranchWithWorkController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="selectedWorkId" type="String"/>
+    <aura:attribute name="recList" type="Object[]"/>
+    <aura:attribute name="searchText" type="String" default="" />
+    
+    <aura:attribute name="recordLoadError" type="String"/>
+    <aura:attribute name="messageType" type="string" default="success"/>
+    <aura:attribute name="message" type="string"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <article class="slds-card">
+        <lightning:layout multipleRows="true" horizontalAlign="center">
+            <aura:if isTrue="{!!empty(v.message)}">
+                <lightning:layoutItem size="12" padding="around-small">
+                    <div class="slds-notify_container slds-is-relative slds-show">
+                        <div class="{!'slds-notify slds-notify_toast slds-theme_'+v.messageType}" role="alert">
+                            <span class="slds-assistive-text">{!v.messageType}</span>
+                            <span class="{!'slds-icon_container slds-icon-utility-'+v.messageType+' slds-m-right_small slds-no-flex slds-align-top'}" title="Description of icon when needed">
+                                <lightning:icon iconName="{!'utility:'+v.messageType}" size="small" variant="inverse" styleclass="slds-icon slds-icon_small" />
+                            </span>
+                            <div class="slds-notify__content">
+                                <h2 class="slds-text-heading_small ">{!v.message}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </aura:if>
+        </lightning:layout>
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="3" padding="around-small">
+                <lightning:input name="searchTxt" value="{!v.searchText}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2" padding="around-small">
+                <lightning:button variant="brand" label="Search" title="Search" onclick="{!c.searchWithText}" class="searchBtn" />
+            </lightning:layoutItem>
+            <aura:if isTrue="{!!empty(v.recList)}">
+                <lightning:layoutItem  size="12" padding="around-small" class="slds-scrollable_y work-data-table-parent">
+                    <table class="slds-table slds-table_bordered" role="grid">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="radioCheckHeader" scope="col">
+                                    <div class="slds-truncate" title=""></div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="">Name</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="">Assigned To</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="">Epic Name</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="">Subject</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="">Product Tag Name</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="">Record Type</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="">Description</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.recList}" var="rec">
+                                <tr class="slds-hint-parent">
+                                    <td class="slds-text-align_right" role="gridcell">
+                                        <span class="slds-radio">
+                                            <input type="radio" id="{!rec.Id}" value="{!rec.Id}" name="workOptions" onclick="{!c.saveWork}"/>
+                                            <label class="slds-radio__label" for="{!rec.Id}">
+                                                <span class="slds-radio_faux"></span>
+                                                <span class="slds-form-element__label"></span>
+                                            </label>
+                                        </span>
+                                    </td>
+                                    <th scope="row" tabindex="0">
+                                        <div class="slds-truncate" title="">{!rec.Name}</div>
+                                    </th>
+                                    <th scope="row" tabindex="0">
+                                        <div class="slds-truncate" title="">{!rec.agf__Assignee__r.Name}</div>
+                                    </th>
+                                    <th scope="row" tabindex="0">
+                                        <div class="slds-truncate" title="">{!rec.agf__Epic_Name__c}</div>
+                                    </th>
+                                    <th scope="row" tabindex="0">
+                                        <div class="slds-truncate" title="">{!rec.agf__Subject__c}</div>
+                                    </th>
+                                    <th scope="row" tabindex="0">
+                                        <div class="slds-truncate" title="">{!rec.agf__Product_Tag_Name__c}</div>
+                                    </th>
+                                    <th scope="row" tabindex="0">
+                                        <div class="slds-truncate" title="">{!rec.RecordType.Name}</div>
+                                    </th>
+                                    <th scope="row" tabindex="0">
+                                        <div class="slds-truncate" title="">
+                                            <lightning:textarea disabled="true" value="{!rec.agf__Details__c}" label="" />
+                                        </div>
+                                    </th>
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </lightning:layoutItem>
+            </aura:if>
+        </lightning:layout>
+    </article>
+</aura:component>
